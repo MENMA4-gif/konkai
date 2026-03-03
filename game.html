@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TRPGキャラメーカー</title>
+
+<style>
+
+body{
+  background:#eee;
+  font-family:sans-serif;
+  margin:0;
+}
+
+/* 右下戻るボタン */
+#backButton{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  padding:12px 18px;
+  font-size:16px;
+  border-radius:10px;
+  border:none;
+  background:black;
+  color:white;
+  cursor:pointer;
+  display:none;
+}
+.danger{
+  background:#ff6b6b;
+  color:white;
+  border:none;
+  padding:10px 16px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* 紙レイアウト */
+.paper{
+  background:white;
+  max-width:700px;
+  margin:40px auto;
+  padding:40px;
+  border-radius:12px;
+  box-shadow:0 0 15px rgba(0,0,0,0.15);
+}
+
+label{
+  font-weight:bold;
+  display:block;
+  margin-top:15px;
+}
+
+input, textarea{
+  width:100%;
+  padding:8px;
+  margin-top:5px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
+
+textarea{
+  min-height:70px;
+  resize:vertical;
+}
+
+/* 閲覧モード */
+.viewMode input,
+.viewMode textarea{
+  border:none;
+  background:transparent;
+  pointer-events:none;
+}
+
+/* 印刷用 */
+@media print{
+  button,#backButton{
+    display:none;
+  }
+  body{
+    background:white;
+  }
+  .paper{
+    box-shadow:none;
+    margin:0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =====================
+     スタート画面
+===================== -->
+<div id="startScreen" style="text-align:center;margin-top:100px;">
+  <h1>TRPGキャラメーカー</h1>
+  <button onclick="goSave()">START</button>
+</div>
+
+<!-- =====================
+     セーブ画面
+===================== -->
+<div id="saveScreen" style="display:none;text-align:center;margin-top:80px;">
+  <h2>セーブデータ</h2>
+
+  <button onclick="loadSlot(1)">データ1</button>
+  <button onclick="loadSlot(2)">データ2</button>
+  <button onclick="loadSlot(3)">データ3</button>
+</div>
+
+<!-- =====================
+     プロフィール画面
+===================== -->
+<div id="profileScreen" style="display:none;">
+
+<div class="paper">
+
+<h2>プロフィール</h2>
+
+<h3>基本情報</h3>
+
+<label>名前</label>
+<input id="nameInput">
+
+<label>年齢</label>
+<input id="ageInput">
+
+<h3>人物像</h3>
+
+<label>性格</label>
+<textarea id="personality"></textarea>
+
+<label>過去</label>
+<textarea id="history"></textarea>
+
+<label>秘密</label>
+<textarea id="secret"></textarea>
+
+<h3>好み</h3>
+
+<label>好きなもの</label>
+<textarea id="like"></textarea>
+
+<label>苦手なもの</label>
+<textarea id="dislike"></textarea>
+
+<hr>
+
+<h3>プロフィール詳細（Q&A）</h3>
+
+<label>第一印象</label>
+<textarea id="firstImpression"></textarea>
+
+<label>長所</label>
+<textarea id="strength"></textarea>
+
+<label>短所</label>
+<textarea id="weakness"></textarea>
+
+<label>大切にしているもの</label>
+<textarea id="important"></textarea>
+
+<label>人には言えない秘密</label>
+<textarea id="secretDetail"></textarea>
+
+<label>将来どうなりたい？</label>
+<textarea id="future"></textarea>
+
+<br><br>
+
+<button onclick="saveProfile()">保存</button>
+<button onclick="toggleViewMode()">閲覧モード</button>
+<button onclick="printProfile()">PDF</button>
+<button onclick="resetProfile()" class="danger">初期化</button>
+
+<p id="showName"></p>
+
+</div>
+</div>
+
+<!-- 戻る -->
+<button id="backButton" onclick="handleBack()">← 戻る</button>
+
+<script src="script.js"></script>
+
+</body>
+</html>
